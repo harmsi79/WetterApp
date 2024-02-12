@@ -3,25 +3,31 @@ const apiKey = "4725677d4d7444429ae185546240502";
 const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${mylocation}&lang=de`;
 
 fetch(url)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`HTTP Fehler: Status ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log("Wetterdaten:", data);
-    const temperature = data.current.temp_c;
-    const condition = data.current.condition.text;
+  .then((responese) => responese.json())
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
 
-    // console.log(
-    //   `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`
-    // );
+// fetch(url)
+//   .then((response) => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP Fehler: Status ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then((data) => {
+//     console.log("Wetterdaten:", data);
 
-    document.getElementById(
-      "ausgabe"
-    ).innerHTML = `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`;
-  })
-  .catch((error) => {
-    console.error("Fehler beim Abrufen der Wetterdaten:", error);
-  });
+//     const temperature = data.current.temp_c;
+//     const condition = data.current.condition.text;
+
+//     // console.log(
+//     //   `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`
+//     // );
+
+//     document.getElementById(
+//       "ausgabe"
+//     ).innerHTML = `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`;
+//   })
+//   .catch((error) => {
+//     console.error("Fehler beim Abrufen der Wetterdaten:", error);
+//   });
