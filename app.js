@@ -14,9 +14,13 @@ fetch(url)
     const temperature = data.current.temp_c;
     const condition = data.current.condition.text;
 
-    console.log(
-      `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`
-    );
+    // console.log(
+    //   `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`
+    // );
+
+    document.getElementById(
+      "ausgabe"
+    ).innerHTML = `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`;
   })
   .catch((error) => {
     console.error("Fehler beim Abrufen der Wetterdaten:", error);
