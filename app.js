@@ -1,19 +1,23 @@
-let position;
+let mylocation = "Großefehn";
+const apiKey = "4725677d4d7444429ae185546240502";
+const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${mylocation}&lang=de`;
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    (success) => {
-      position = success.coords;
-      // Jetzt hast du Zugriff auf die Breiten- und Längengrade in den Variablen:
-      const latitude = position.latitude;
-      const longitude = position.longitude;
-
-      // Nutze die Daten z.B. für die Anzeige auf einer Karte oder weitere Berechnungen.
-    },
-    (error) => {
-      console.error("Fehler beim Abrufen der Standortdaten:", error);
+fetch(url)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP Fehler: Status ${response.status}`);
     }
-  );
-} else {
-  console.log("Geolocation wird vom Browser nicht unterstützt.");
-}
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Wetterdaten:", data);
+    const temperature = data.current.temp_c;
+    const condition = data.current.condition.text;
+
+    console.log(
+      `In ${mylocation} ist es derzeit ${temperature} °C und ${condition}.`
+    );
+  })
+  .catch((error) => {
+    console.error("Fehler beim Abrufen der Wetterdaten:", error);
+  });
